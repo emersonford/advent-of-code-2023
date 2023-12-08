@@ -1,3 +1,4 @@
+use clap::Parser;
 use std::str::FromStr;
 
 struct CubeConfiguration {
@@ -7,6 +8,10 @@ struct CubeConfiguration {
 }
 
 impl CubeConfiguration {
+    fn greater_than(&self, rhs: &CubeConfiguration) -> bool {
+        self.red > rhs.red || self.green > rhs.green || self.blue > rhs.blue
+    }
+
     fn max_colors(&self, rhs: &CubeConfiguration) -> Self {
         Self {
             red: self.red.max(rhs.red),
@@ -47,7 +52,7 @@ impl FromStr for CubeConfiguration {
     }
 }
 
-fn main() {
+fn part2() {
     let ret: usize = std::io::stdin()
         .lines()
         .into_iter()
@@ -67,4 +72,53 @@ fn main() {
         .sum();
 
     println!("{}", ret);
+}
+
+fn part1() {
+    let total = CubeConfiguration {
+        red: 12,
+        green: 13,
+        blue: 14,
+    };
+
+    let ret: usize = std::io::stdin()
+        .lines()
+        .into_iter()
+        .map(|line| {
+            let line = line.unwrap();
+
+            let (game_prefix, rest) = line.split_once(": ").unwrap();
+
+            let (_, id_str) = game_prefix.split_once(' ').unwrap();
+            let id = id_str.parse::<usize>().unwrap();
+
+            if rest.split("; ").all(|colors_line| {
+                let colors: CubeConfiguration = colors_line.parse().unwrap();
+
+                !colors.greater_than(&total)
+            }) {
+                id
+            } else {
+                0
+            }
+        })
+        .sum();
+
+    println!("{}", ret);
+}
+
+#[derive(Parser)]
+struct Cli {
+    #[arg(long)]
+    part2: bool,
+}
+
+fn main() {
+    let args = Cli::parse();
+
+    if args.part2 {
+        part2();
+    } else {
+        part1();
+    }
 }

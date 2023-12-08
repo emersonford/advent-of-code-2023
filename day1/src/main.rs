@@ -1,3 +1,4 @@
+use clap::Parser;
 use regex::Regex;
 
 fn word_to_num(word: &str) -> usize {
@@ -15,7 +16,7 @@ fn word_to_num(word: &str) -> usize {
     }
 }
 
-fn main() {
+fn part2() {
     let fst_re = Regex::new("^.*?(one|two|three|four|five|six|seven|eight|nine|[0-9]).*$").unwrap();
     let lst_re = Regex::new("^.*(one|two|three|four|five|six|seven|eight|nine|[0-9]).*?$").unwrap();
 
@@ -33,4 +34,37 @@ fn main() {
         .sum();
 
     println!("{}", ret);
+}
+
+fn part1() {
+    let ret: usize = std::io::stdin()
+        .lines()
+        .into_iter()
+        .map(|line| {
+            let line = line.unwrap();
+
+            let fst = line.chars().find(|chr| chr.is_digit(10)).unwrap();
+            let lst = line.chars().rev().find(|chr| chr.is_digit(10)).unwrap();
+
+            format!("{fst}{lst}").parse::<usize>().unwrap()
+        })
+        .sum();
+
+    println!("{}", ret);
+}
+
+#[derive(Parser)]
+struct Cli {
+    #[arg(long)]
+    part2: bool,
+}
+
+fn main() {
+    let args = Cli::parse();
+
+    if args.part2 {
+        part2();
+    } else {
+        part1();
+    }
 }
