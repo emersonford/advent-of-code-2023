@@ -48,7 +48,7 @@ fn part2() {
             .unwrap();
 
         let mut tuples = chunk
-            .into_iter()
+            .iter()
             .skip(1)
             .map(|line| {
                 let mut split = line.split(' ').map(|x| x.parse::<usize>().unwrap());
@@ -140,7 +140,7 @@ fn part1() {
             .unwrap();
 
         let mut tuples = chunk
-            .into_iter()
+            .iter()
             .skip(1)
             .map(|line| {
                 let mut split = line.split(' ').map(|x| x.parse::<usize>().unwrap());

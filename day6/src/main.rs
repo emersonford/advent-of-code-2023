@@ -34,7 +34,6 @@ fn num_options(race_length: usize, distance_to_beat: usize) -> usize {
 fn part2() {
     let lines = std::io::stdin()
         .lines()
-        .into_iter()
         .map(|line| line.unwrap())
         .collect::<Vec<_>>();
 
@@ -45,7 +44,6 @@ fn part2() {
     let time = times_line
         .strip_prefix("Time: ")
         .unwrap()
-        .trim()
         .split_whitespace()
         .collect::<Vec<_>>()
         .join("")
@@ -54,7 +52,6 @@ fn part2() {
     let distance = distances_line
         .strip_prefix("Distance: ")
         .unwrap()
-        .trim()
         .split_whitespace()
         .collect::<Vec<_>>()
         .join("")
@@ -67,7 +64,6 @@ fn part2() {
 fn part1() {
     let lines = std::io::stdin()
         .lines()
-        .into_iter()
         .map(|line| line.unwrap())
         .collect::<Vec<_>>();
 
@@ -78,13 +74,11 @@ fn part1() {
     let times = times_line
         .strip_prefix("Time: ")
         .unwrap()
-        .trim()
         .split_whitespace()
         .map(|val| val.parse::<usize>().unwrap());
     let distances = distances_line
         .strip_prefix("Distance: ")
         .unwrap()
-        .trim()
         .split_whitespace()
         .map(|val| val.parse::<usize>().unwrap());
 

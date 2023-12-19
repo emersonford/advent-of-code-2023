@@ -8,7 +8,6 @@ fn part2() {
 
     let lines = std::io::stdin()
         .lines()
-        .into_iter()
         .map(|line| line.unwrap())
         .collect::<Vec<_>>();
 
@@ -37,8 +36,8 @@ fn part2() {
             let end = cap.end();
 
             for row_col in [
-                (line_num > 0).then(|| line_num - 1),
-                (line_num + 1 < num_lines).then(|| line_num + 1),
+                (line_num > 0).then_some(line_num - 1),
+                (line_num + 1 < num_lines).then_some(line_num + 1),
             ]
             .into_iter()
             .flatten()
@@ -81,7 +80,6 @@ fn part1() {
 
     let lines = std::io::stdin()
         .lines()
-        .into_iter()
         .map(|line| line.unwrap())
         .collect::<Vec<_>>();
 
@@ -92,7 +90,7 @@ fn part1() {
         .map(|line| {
             line.chars()
                 .enumerate()
-                .flat_map(|(idx, char)| (!char.is_digit(10) && char != '.').then_some(idx))
+                .flat_map(|(idx, char)| (!char.is_ascii_digit() && char != '.').then_some(idx))
                 .collect()
         })
         .collect::<Vec<HashSet<usize>>>();
@@ -110,8 +108,8 @@ fn part1() {
             let end = cap.end();
 
             if [
-                (line_num > 0).then(|| line_num - 1),
-                (line_num + 1 < num_lines).then(|| line_num + 1),
+                (line_num > 0).then_some(line_num - 1),
+                (line_num + 1 < num_lines).then_some(line_num + 1),
             ]
             .into_iter()
             .flatten()

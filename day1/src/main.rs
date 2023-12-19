@@ -22,7 +22,6 @@ fn part2() {
 
     let ret: usize = std::io::stdin()
         .lines()
-        .into_iter()
         .map(|line| {
             let line = line.unwrap();
 
@@ -39,12 +38,11 @@ fn part2() {
 fn part1() {
     let ret: usize = std::io::stdin()
         .lines()
-        .into_iter()
         .map(|line| {
             let line = line.unwrap();
 
-            let fst = line.chars().find(|chr| chr.is_digit(10)).unwrap();
-            let lst = line.chars().rev().find(|chr| chr.is_digit(10)).unwrap();
+            let fst = line.chars().find(|chr| chr.is_ascii_digit()).unwrap();
+            let lst = line.chars().rev().find(|chr| chr.is_ascii_digit()).unwrap();
 
             format!("{fst}{lst}").parse::<usize>().unwrap()
         })

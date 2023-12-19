@@ -48,14 +48,13 @@ impl FromStr for CubeConfiguration {
             }
         }
 
-        return Ok(ret);
+        Ok(ret)
     }
 }
 
 fn part2() {
     let ret: usize = std::io::stdin()
         .lines()
-        .into_iter()
         .map(|line| {
             let line = line.unwrap();
 
@@ -83,7 +82,6 @@ fn part1() {
 
     let ret: usize = std::io::stdin()
         .lines()
-        .into_iter()
         .map(|line| {
             let line = line.unwrap();
 
